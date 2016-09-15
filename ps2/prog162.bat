@@ -1,0 +1,1 @@
+avreal32 -ab -p1 +mega162 -o14MHz -cRelease\exe\ps2.hex  -e -w -v -%%
