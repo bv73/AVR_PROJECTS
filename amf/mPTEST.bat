@@ -1,0 +1,1 @@
+avreal32 -ab -p1 +mega162 -c mPTEST.hex -e -w -v -%%

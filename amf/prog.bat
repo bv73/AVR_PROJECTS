@@ -1,0 +1,1 @@
+avreal32 -ab -p1 +mega162 -c Release\exe\amf.hex -e -w -v -%%
