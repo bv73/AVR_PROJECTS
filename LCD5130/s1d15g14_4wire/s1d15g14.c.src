@@ -1,0 +1,300 @@
+unsigned char colors[]= { 0x1F, 0xE3, 0xFC, 0x03, 0xE0, 0xFF, 0x00 };
+
+enum color_numbers{
+red,green,blue,yellow,sky,black,white
+};
+
+/*
+#define red    0b 0001 1111     // 0x1F
+#define green  0b 1110 0011     // 0xE3
+#define blue   0b 1111 1100     // 0xFC
+#define yellow 0b 0000 0011     // 0x03
+#define sky    0b 1110 0000     // 0xE0
+#define black  0xff
+#define white 0x00
+*/
+
+#define CMD    0
+#define DATA   1
+
+void send(unsigned char nokia_data, unsigned char cd);
+void nokia_cs(void);
+
+void nokia_printchar(unsigned char caracter);
+void PrintByte(unsigned char bytefornokia);
+void nokia_outs(unsigned char * s, unsigned char x, unsigned char y);
+void nokia_senddata(unsigned char nokia_data);
+void clear_screen(unsigned char fondo);
+
+unsigned char c;
+unsigned char bgcolor=red;
+unsigned char fgcolor=black;
+
+
+#include "font.h"
+
+void nokiacolorinit(void)
+   {
+   unsigned int16 i;
+       
+   output_low(SCLK);
+   output_low(SDATA);
+   output_low(CS);
+   output_low(RESET);
+
+   delay_ms(250);
+
+   // LCD Hardware Reset
+   output_bit(RESET,0);
+   delay_ms(5);
+   output_bit(RESET,1);
+
+   output_bit(CS,1);
+   output_bit(SCLK,1);
+   output_bit(SDATA,1);
+
+   send(0x01, CMD);      // LCD Software Reset
+   nokia_cs();
+   delay_ms(5);
+
+   send(0xC6, CMD);      // Initial Escape
+   nokia_cs();
+
+   send(0xB9, CMD);      // Refresh set
+   send(0x00, DATA);
+   nokia_cs();
+
+   send(0xB6, CMD);      // Display Control
+   send(128, DATA);
+   send(128, DATA);
+   send(129, DATA);
+   send(84, DATA);
+   send(69, DATA);
+   send(82, DATA);
+   send(67, DATA);
+   nokia_cs();
+
+   send(0xB3, CMD);      // Gray Scale Position
+   send(1, DATA);
+   send(2, DATA);
+   send(4, DATA);
+   send(8, DATA);
+   send(16, DATA);
+   send(30, DATA);
+   send(40, DATA);
+   send(50, DATA);
+   send(60, DATA);
+   send(70, DATA);
+   send(80, DATA);
+   send(90, DATA);
+   send(100, DATA);
+   send(110, DATA);
+   send(127, DATA);
+   nokia_cs();
+
+   send(0x2D, CMD);      // COLOUR SET  (RGBSET)
+
+   send(0, DATA);
+   send(3, DATA);
+   send(5, DATA);
+   send(7, DATA);
+   send(9, DATA);
+   send(11, DATA);
+   send(13, DATA);
+   send(15, DATA);
+
+   send(0, DATA);
+   send(3, DATA);
+   send(5, DATA);
+   send(7, DATA);
+   send(9, DATA);
+   send(11, DATA);
+   send(13, DATA);
+   send(15, DATA);
+
+   send(0, DATA);
+   send(3, DATA);
+   send(9, DATA);
+   send(15, DATA);
+
+   nokia_cs();
+
+   send(0xB5, CMD);           // Gamma Curve Set
+   send(1, DATA);
+   nokia_cs();
+
+   send(0xBE, CMD);           // Power Control
+   send(4, DATA);
+   nokia_cs();
+
+   send(0x11, CMD);           // Sleep out
+   nokia_cs();
+
+   send(0xB7, CMD);           // Temperature gradient set
+   for(i=0; i<14; i++)   send(0, DATA);
+   nokia_cs();
+
+   send(0x03, CMD);           // Booster Voltage ON
+   nokia_cs();
+   delay_ms(40);
+
+   send(0x20, CMD);           // Invert colors off
+   nokia_cs();
+
+   send(0x25, CMD);           // Write contrast
+   send(63, DATA);           // was 63
+   nokia_cs();
+
+   send(0x36, CMD);           // Memory access control
+   send(0b00100000, DATA);   // TOPBUTTOM, LEFTRIGHT, INVERT MODE (From top to bottom), RGB,
+   //send(0b00000000, DATA);
+   nokia_cs();
+
+
+   send(0x3A, CMD);      // Interface pixel format
+   send(0b00000010, DATA); // 8 bit mode
+   nokia_cs();
+
+   clear_screen(bgcolor);
+      
+   send(0x29, CMD);           // Display On
+   nokia_cs();
+
+}
+
+void clear_screen(unsigned char fondo)
+{
+   unsigned int16 i;
+   
+   send(0x2C, CMD);           // Memory Write
+   for(i=0; i<6566; i++)
+   {
+   nokia_senddata(fondo);             // clear screen
+   }
+   nokia_cs();
+
+}
+
+void send(unsigned char nokia_data, unsigned char cd) {
+
+   output_bit(CS,0);
+
+   output_bit(SCLK,0);
+   if(cd == CMD)
+      output_bit(SDATA,0);
+   else
+      output_bit(SDATA,1);
+   output_bit(SCLK,1);
+
+   for (c=8;c>0;c--)
+         {
+      output_bit(SCLK,0);
+
+      output_bit(SDATA,(nokia_data&0x80));
+
+      output_bit(SCLK,1);
+      nokia_data=nokia_data<<1;
+         }
+}
+
+void nokia_senddata(unsigned char nokia_data) {
+
+   output_bit(CS,0);
+
+   output_bit(SCLK,0);
+   output_bit(SDATA,1);
+   output_bit(SCLK,1);
+
+   for (c=8;c>0;c--)
+         {
+      output_bit(SCLK,0);
+
+      output_bit(SDATA,(nokia_data&0x80));
+
+      output_bit(SCLK,1);
+      nokia_data=nokia_data<<1;
+         }
+
+}
+
+
+void nokia_cs(void)
+{
+   output_bit(CS,1);   // CS = 1
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Wrote in the character LCD past
+////////////////////////////////////////////////////////////////////////////////
+
+void nokia_printchar(unsigned char caracter)
+{
+unsigned char char_row,charpos,chardata;
+
+   if(caracter==0xF1) caracter=0x80;
+   else if(caracter==0xD1) caracter=0x81;
+   else if (caracter<0x20) return;
+   else if (caracter>0x7f) return;
+
+
+   for (char_row=0;char_row<5;char_row++)
+   {           // They are 5 Bytes per character
+                                                      // So this loop
+      if (caracter<0x50)
+       {
+         charpos=(((caracter&0xff)-0x20)*5)+char_row;
+         chardata=ASCII_TABLE1[charpos];
+       }
+
+      else if (caracter>0x4f)
+       {
+         charpos=(((caracter&0xff)-0x50)*5)+char_row;
+         chardata=ASCII_TABLE2[charpos];
+       }
+
+
+      PrintByte(chardata);                    // Send character
+
+   }
+
+   PrintByte(0x00);                           // We send space White 1
+
+}
+
+
+void PrintByte(unsigned char bytefornokia)    // 8 pixels
+{
+    char caa;
+   
+   for (caa=8;caa>0;caa--)
+   {
+
+      if ((bytefornokia&0x01)==0)       send(bgcolor, DATA);
+      else send(fgcolor, DATA);
+
+      bytefornokia=bytefornokia>>1;
+   }
+
+
+}
+
+void nokia_outs(unsigned char * s, unsigned char x, unsigned char y)
+{
+
+   send(0x2B, CMD);      // page address set
+   send(y, DATA);
+   send(y+7, DATA);
+   nokia_cs();
+
+   send(0x2A, CMD);      // column address set
+   send(x, DATA);
+   send(x+96, DATA);
+   nokia_cs();
+
+   send(0x2C, CMD);      // Memory Write
+
+   while(*s)
+   nokia_printchar(*s++);
+
+   nokia_cs();
+}

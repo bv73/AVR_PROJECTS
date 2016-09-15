@@ -1,0 +1,38 @@
+// Main Function
+
+void main(void)
+{
+int i;
+char str[50];
+
+
+   nokiacolorinit();             // LCD Initialization
+
+
+   bgcolor=colors[white];
+   sprintf(str,"DEMO DE 3510iLCD");
+   
+   for(i=0; i<6; i++)            // Shows all the colors less white
+   {
+   fgcolor=colors[i];           // change the color of letters
+   nokia_outs(str,1,2+(i*8));          // next line ( each line=8 bits )
+   }
+
+
+   sprintf(str,"                ");
+   
+   while(true)
+   {
+   
+       for(i=0; i<7; i++)            // Shows all the colors in 2 strip
+      {
+      bgcolor=colors[i];           // change the background color
+      nokia_outs(str,1,2+(6*8));          // next line ( each line=8 bits )
+      nokia_outs(str,1,2+(7*8));          // next line ( each line=8 bits )
+      delay_ms(1500);
+      }
+   
+   
+   }
+}
+
