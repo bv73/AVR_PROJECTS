@@ -1,0 +1,8 @@
+mega88 Default fuses:
+
+fuse byte 0 = 0x62
+fuse byte 1 = 0xDF
+fude byte 2 = 0xF9 (BOOTSZ1,0; BOOTRST)
+
+0xE2 0xDF 0xF9 for internal RC oscillator 8MHz and no CKDIV8
+0xE7 0xDF 0xF9 for external XTAL 8MHz and no CKDIV8
