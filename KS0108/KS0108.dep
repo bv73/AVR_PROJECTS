@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project>
+  <fileVersion>2</fileVersion>
+  <fileChecksum>830620827</fileChecksum>
+  <configuration>
+    <name>Debug</name>
+    <outputs>
+      <file>$PROJ_DIR$\KS0108-AVR.c</file>
+      <file>$TOOLKIT_DIR$\inc\iom128.h</file>
+      <file>$PROJ_DIR$\Debug\List\main.s90</file>
+      <file>$PROJ_DIR$\Debug\Exe\KS0108.d90</file>
+      <file>$PROJ_DIR$\Debug\Obj\KS0108.pbd</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.r90</file>
+      <file>$PROJ_DIR$\font5x8.h</file>
+      <file>$TOOLKIT_DIR$\inc\iomacro.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\inavr.h</file>
+      <file>$PROJ_DIR$\KS0108.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\pgmspace.h</file>
+      <file>$PROJ_DIR$\KS0108.c</file>
+      <file>$PROJ_DIR$\font_5x7.inc</file>
+      <file>$TOOLKIT_DIR$\inc\clib\string.h</file>
+      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
+      <file>$TOOLKIT_DIR$\src\template\cfg3s.xcl</file>
+      <file>$TOOLKIT_DIR$\lib\clib\cl3s-ec_mul.r90</file>
+      <file>$TOOLKIT_DIR$\inc\clib\sysmac.h</file>
+      <file>$PROJ_DIR$\Debug\List\main.lst</file>
+      <file>$TOOLKIT_DIR$\inc\clib\stdarg.h</file>
+      <file>$PROJ_DIR$\main.c</file>
+      <file>$TOOLKIT_DIR$\src\template\cfgm128.xcl</file>
+      <file>$TOOLKIT_DIR$\inc\clib\stdio.h</file>
+    </outputs>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 3</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Exe\KS0108.d90</name>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 22 16 5 17</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Obj\KS0108.pbd</name>
+      <inputs>
+        <tool>
+          <name>BILINK</name>
+          <file> 8</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\main.c</name>
+      <outputs>
+        <tool>
+          <name>ICCAVR</name>
+          <file> 5 2 19</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 8</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCAVR</name>
+          <file> 1 7 9 15 11 14 18 23 20 12 10 6 0 13</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 1 7 9 15 11 14 18 23 20 12 10 6 0 13</file>
+        </tool>
+      </inputs>
+    </file>
+  </configuration>
+  <configuration>
+    <name>Release</name>
+    <outputs>
+      <file>$PROJ_DIR$\KS0108-AVR.c</file>
+      <file>$PROJ_DIR$\Release\Obj\main.r90</file>
+      <file>$PROJ_DIR$\Release\Obj\main.pbi</file>
+      <file>$PROJ_DIR$\Release\Exe\KS0108.hex</file>
+      <file>$PROJ_DIR$\font5x7.h</file>
+      <file>$PROJ_DIR$\Release\List\main.lst</file>
+      <file>$PROJ_DIR$\Release\Obj\KS0108.pbd</file>
+      <file>$TOOLKIT_DIR$\inc\iom128.h</file>
+      <file>$PROJ_DIR$\uart.c</file>
+      <file>$PROJ_DIR$\LCD5130.c</file>
+      <file>$PROJ_DIR$\font5x8.h</file>
+      <file>$TOOLKIT_DIR$\inc\iomacro.h</file>
+      <file>$TOOLKIT_DIR$\inc\inavr.h</file>
+      <file>$PROJ_DIR$\KS0108.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\pgmspace.h</file>
+      <file>$PROJ_DIR$\KS0108.c</file>
+      <file>$TOOLKIT_DIR$\inc\clib\string.h</file>
+      <file>$PROJ_DIR$\Release\Exe\KS0108_data.hex</file>
+      <file>$PROJ_DIR$\LCD5130.h</file>
+      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
+      <file>$TOOLKIT_DIR$\src\template\cfg3s.xcl</file>
+      <file>$PROJ_DIR$\Release\List\main.s90</file>
+      <file>$PROJ_DIR$\Release\Exe\KS0108_eeprom.hex</file>
+      <file>$TOOLKIT_DIR$\lib\clib\cl3s-ec_mul.r90</file>
+      <file>$TOOLKIT_DIR$\inc\clib\sysmac.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\stdarg.h</file>
+      <file>$PROJ_DIR$\main.c</file>
+      <file>$TOOLKIT_DIR$\src\template\cfgm128.xcl</file>
+      <file>$TOOLKIT_DIR$\inc\clib\stdio.h</file>
+    </outputs>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 3 17 22</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Release\Exe\KS0108.hex</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 17 22</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 27 20 1 23</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Release\Obj\KS0108.pbd</name>
+      <inputs>
+        <tool>
+          <name>BILINK</name>
+          <file> 2</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\main.c</name>
+      <outputs>
+        <tool>
+          <name>ICCAVR</name>
+          <file> 1 21 5</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 2</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCAVR</name>
+          <file> 7 11 12 19 14 16 24 28 25 15 13 10 0 9 4 18 8</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 7 11 12 19 14 16 24 28 25 15 13 10 0 9 4 18 8</file>
+        </tool>
+      </inputs>
+    </file>
+  </configuration>
+</project>
+
+
