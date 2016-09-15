@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<project>
+  <fileVersion>2</fileVersion>
+  <fileChecksum>922098449</fileChecksum>
+  <configuration>
+    <name>Debug</name>
+    <outputs>
+      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
+      <file>$PROJ_DIR$\font5x7.h</file>
+      <file>$TOOLKIT_DIR$\src\template\cfgm2561.xcl</file>
+      <file>$TOOLKIT_DIR$\inc\iom2561.h</file>
+      <file>$TOOLKIT_DIR$\src\template\cfg5s.xcl</file>
+      <file>$PROJ_DIR$\120x160_24.bmp</file>
+      <file>$TOOLKIT_DIR$\lib\clib\cl5s-ec_mul.r90</file>
+      <file>$TOOLKIT_DIR$\inc\iomacro.h</file>
+      <file>$PROJ_DIR$\hd66766.h</file>
+      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.r90</file>
+      <file>$TOOLKIT_DIR$\inc\clib\stdarg.h</file>
+      <file>$PROJ_DIR$\sed15b1.c</file>
+      <file>$PROJ_DIR$\hd66766.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\lcd5130.pbd</file>
+      <file>$PROJ_DIR$\Debug\Exe\lcd5130.d90</file>
+      <file>$TOOLKIT_DIR$\inc\clib\string.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\stdio.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\sysmac.h</file>
+      <file>$PROJ_DIR$\sed15b1.h</file>
+      <file>$PROJ_DIR$\main.c</file>
+    </outputs>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 15</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Obj\lcd5130.pbd</name>
+      <inputs>
+        <tool>
+          <name>BILINK</name>
+          <file> 0</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Exe\lcd5130.d90</name>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 2 4 10 6 5</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\main.c</name>
+      <outputs>
+        <tool>
+          <name>ICCAVR</name>
+          <file> 10</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 0</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCAVR</name>
+          <file> 3 7 9 17 11 18 16 1 19 12 8 13</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 3 7 9 17 11 18 16 1 19 12 8 13</file>
+        </tool>
+      </inputs>
+    </file>
+  </configuration>
+  <configuration>
+    <name>Release</name>
+    <outputs>
+      <file>$PROJ_DIR$\font5x7.h</file>
+      <file>$PROJ_DIR$\Release\List\lcd5130.map</file>
+      <file>$PROJ_DIR$\Release\Obj\main.pbi</file>
+      <file>$PROJ_DIR$\Release\List\main.lst</file>
+      <file>$PROJ_DIR$\Release\Exe\lcd5130.hex</file>
+      <file>$PROJ_DIR$\Release\List\main.s90</file>
+      <file>$PROJ_DIR$\Release\Obj\main.r90</file>
+      <file>$TOOLKIT_DIR$\src\template\cfgm2561.xcl</file>
+      <file>$TOOLKIT_DIR$\inc\iom2561.h</file>
+      <file>$TOOLKIT_DIR$\src\template\cfg5s.xcl</file>
+      <file>$PROJ_DIR$\120x160_24.bmp</file>
+      <file>$TOOLKIT_DIR$\lib\clib\cl5s-ec_mul.r90</file>
+      <file>$PROJ_DIR$\Release\Obj\lcd5130.pbd</file>
+      <file>$TOOLKIT_DIR$\inc\iomacro.h</file>
+      <file>$PROJ_DIR$\hd66766.h</file>
+      <file>$TOOLKIT_DIR$\inc\intrinsics.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\stdarg.h</file>
+      <file>$PROJ_DIR$\sed15b1.c</file>
+      <file>$PROJ_DIR$\hd66766.c</file>
+      <file>$TOOLKIT_DIR$\inc\clib\string.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\stdio.h</file>
+      <file>$TOOLKIT_DIR$\inc\clib\sysmac.h</file>
+      <file>$PROJ_DIR$\sed15b1.h</file>
+      <file>$PROJ_DIR$\main.c</file>
+    </outputs>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 4 1</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Release\Exe\lcd5130.hex</name>
+      <outputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 1</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>XLINK</name>
+          <file> 7 9 6 11 10</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Release\Obj\lcd5130.pbd</name>
+      <inputs>
+        <tool>
+          <name>BILINK</name>
+          <file> 2</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\main.c</name>
+      <outputs>
+        <tool>
+          <name>ICCAVR</name>
+          <file> 6 5 3</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 2</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ICCAVR</name>
+          <file> 8 13 15 20 16 21 19 0 22 17 14 18</file>
+        </tool>
+        <tool>
+          <name>BICOMP</name>
+          <file> 8 13 15 20 16 21 19 0 22 17 14 18</file>
+        </tool>
+      </inputs>
+    </file>
+  </configuration>
+</project>
+
+

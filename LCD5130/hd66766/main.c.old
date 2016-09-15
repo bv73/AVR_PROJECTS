@@ -1,0 +1,95 @@
+#include <iom2561.h>
+#include <intrinsics.h> // for __delay procedures
+#include <stdio.h> // for sprintf
+#include <string.h> // for memset
+
+#define delay_us(V) __delay_cycles(V*14L)
+
+void delay_ms (int c)
+{
+  do
+  {
+    delay_us(1000); // 1 ms
+  }
+  while (--c);
+}
+
+#include "font5x7.h"
+
+#include "sed15b1.h"
+#include "sed15b1.c"
+
+#include "hd66766.h"
+#include "hd66766.c"
+
+float a, b, c;
+
+void main( void )
+{
+
+  /*
+  
+  extern __flash BMP bmp_file; // CODE 00000BB8 - 0000ECED (0xe136 bytes), align: 2
+
+  unsigned int type = bmp_file.bfh.bfType;
+  unsigned int Width = bmp_file.bih.biWidth; // Ширина картинки
+  unsigned int Height = bmp_file.bih.biHeight;  // Высота картинки
+//  RGBTRIPLE color;
+  
+//  memset (Palette,0,1024);
+//  memset (&bfh, 0, sizeof(bfh));
+//  bfh.bfType = 0x4D42;
+  unsigned int main_offset = bmp_file.bfh.bfOffBits; // отступ от начала файла где лежат данные RGB
+
+  unsigned int file_size = bmp_file.bfh.bfSize;  // размер файла
+
+//  memset (&bih, 0, sizeof(bih));
+//  bih.biSize = sizeof(bih); // Так положено
+//  bih.biBitCount = 24;      // 24 бит на пиксель
+//  bih.biCompression = BI_RGB;   // Без сжатия
+//  bih.biHeight = Height;
+//  bih.biWidth = Width;
+//  bih.biPlanes = 1;           // Должно быть 1
+
+  */
+  
+  //-------------------------
+  a=54.321;
+  b=3.14;
+  c=a/b;
+  hd66766_init(); // в инит встроена очистка дисплея и установка вывода в начале экрана
+  hd66766_clear_console(0x20); // Чистим пробелами
+
+  unsigned int id0, id1;
+  hd66766_write(0,HD66766_R00);  // Index Register 00
+  id0=hd66766_read(0); // rs=1 device code read
+  id1=hd66766_read(1); // rs=1 device code read
+  
+  sed15b1_init();
+  sed15b1_clear_console(0x20);
+  
+//  sprintf(LIN1,"Type:%X",type); // Должно быть 0x4D42
+//  sprintf(LIN2,"Width:%d",Width);
+//  sprintf(LIN3,"Height:%d",Height);
+//  sprintf(LIN4,"Offset:%d",main_offset);
+//  sprintf(LIN5,"Filesize:%X",file_size);
+  sprintf(LIN5,"ID0:%X",id0);
+  sprintf(LIN6,"ID1:%X",id1);
+
+  sprintf(LINE_01,"Драйвер Hitachi HD66766");
+  sprintf(LINE_02,"Colour LCD 160X120 pixels");
+  sprintf(LINE_03,"65536 Colors Palette");
+  sprintf(LINE_04,"For Alcatel 556/557");
+  sprintf(LINE_05,"16-bit Parallel mode");
+  sprintf(LINE_06,"Тест %g/%g=%g",a,b,c);
+  sprintf(LINE_07,"Research & Coding");
+  sprintf(LINE_08,"By (R)soft 2011");
+
+  sed15b1_update_console();
+  //  hd66766_update_console();
+
+  while (1)
+  {
+    
+  }
+}

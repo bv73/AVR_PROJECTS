@@ -1,0 +1,505 @@
+BMP
+[править]
+Материал из Википедии — свободной энциклопедии 
+Текущая версия страницы пока не проверялась опытными участниками и может значительно отличаться от версии, проверенной 28 июня 2010; проверки требуют 62 правки.
+Для термина «Bitmap» см. другие значения.
+Windows BitmapРасширение	
+.bmp, .dib
+MIME	
+image/x-ms-bmp, image/x-bmp
+Разработан	
+Microsoft
+Тип формата	
+растровая графика
+
+
+BMP (от англ. Bitmap Picture) — формат хранения растровых изображений.
+
+С форматом BMP работает огромное количество программ, так как его поддержка интегрирована в операционные системы Windows и OS/2. Файлы формата BMP могут иметь расширения .bmp, .dib и .rle. Кроме того, данные этого формата включаются в двоичные файлы ресурсов RES и в PE-файлы.
+
+Глубина цвета в данном формате может быть 1, 2, 4, 8, 16, 24, 32, 48 бит на пиксел, максимальные размеры изображения 65535?65535 пикселов. Однако, глубина 2 бит официально не поддерживается.
+
+В формате BMP есть поддержка сжатия по алгоритму RLE, однако теперь существуют форматы с более сильным сжатием, и из-за большого объёма BMP редко используется в Интернете, где для сжатия без потерь используются PNG и более старый GIF.Содержание  [убрать] 
+1 DIB и DDB
+2 Обзор структуры файла
+3 BITMAPFILEHEADER[2]
+4 После заголовка файла 
+4.1 BITMAPINFOHEADER[3]
+4.2 BITMAPV4HEADER[4]
+4.3 BITMAPV5HEADER[5]
+5 Палитра
+6 Данные изображения
+7 Битность изображения
+8 Индексированные цвета
+9 Пример программы
+10 Примечания
+11 Ссылки
+
+[править]
+DIB и DDB
+
+ Аббревиатура DIB означает аппаратно-независимый растр (англ. Device Independent Bitmap, DIB). При использовании этого формата программист может получить доступ ко всем элементам структур, описывающих изображение, при помощи обычного указателя. Но эти данные не используются для непосредственного управления экраном, так как они всегда хранятся в системной памяти, а не в специализированной видеопамяти. Формат пикселя в оперативной памяти может отличаться от того формата, который должен заноситься в видеопамять для индикации точки такого же цвета. Например, в DIB-формате может использоваться 24 бита для задания пикселя, а графический адаптер в этот момент может работать в режиме HiColor с цветовой глубиной 16 бит. При этом ярко-красная точка в аппаратно-независимом формате будет задаваться тремя байтами 0x0000ff, а в видеопамяти — словом 0xF800. При копировании картинки на экран система будет тратить дополнительное время на преобразование кодов цвета из 24-битного формата в формат видеобуфера.
+
+DDB означает аппаратно-зависимый растр (англ. Device Dependent Bitmap, DDB). Этот формат всегда содержит цветовые коды, совпадающие с кодами видеобуфера, но храниться он может как в системной, так и в видеопамяти. В обоих случаях он содержит только коды цвета в том формате, который обеспечит пересылку изображения из ОЗУ в видеопамять при помощи простого копирования[1].
+[править]
+Обзор структуры файла
+
+BMP-файл состоит из четырёх частей:
+Заголовок файла (BITMAPFILEHEADER)
+Заголовок изображения (BITMAPINFOHEADER, может отсутствовать). BITMAPV4HEADER (Win95, NT4.0) BITMAPV5HEADER (Win98/Me, 2000/XP)
+Палитра (может отсутствовать)
+Само изображение
+[править]
+BITMAPFILEHEADER[2]
+
+Эта структура содержит информацию о типе, размере и представлении данных в файле.
+typedef struct tagBITMAPFILEHEADER 
+{ 
+  WORD    bfType; 
+  DWORD   bfSize; 
+  WORD    bfReserved1; 
+  WORD    bfReserved2; 
+  DWORD   bfOffBits; 
+} BITMAPFILEHEADER, *PBITMAPFILEHEADER;
+
+Тип WORD должен иметь размер 16 бит, типы DWORD и LONG — 32 бита, тип LONG — знаковый, порядок байтов подразумевается little endian.
+bfType — тип файла, символы «BM» (в HEX: 0x42 0x4d).
+bfSize — размер всего файла в байтах.
+bfReserved1 и bfReserved2 — зарезервированы, должны содержать нули.
+bfOffBits — содержит смещение в байтах от начала структуры BITMAPFILEHEADER до непосредственно битов изображения.
+[править]
+После заголовка файла
+[править]
+BITMAPINFOHEADER[3]
+Наиболее простой вариант заголовка. Приложения для Windows NT3.51 и более ранних могут использовать только эту структуру.
+typedef struct tagBITMAPINFOHEADER{
+  DWORD  biSize; 
+  LONG   biWidth; 
+  LONG   biHeight; 
+  WORD   biPlanes; 
+  WORD   biBitCount; 
+  DWORD  biCompression; 
+  DWORD  biSizeImage; 
+  LONG   biXPelsPerMeter; 
+  LONG   biYPelsPerMeter; 
+  DWORD  biClrUsed; 
+  DWORD  biClrImportant; 
+} BITMAPINFOHEADER, *PBITMAPINFOHEADER;
+biSize — размер структуры в байтах.
+biWidth — ширина изображения в пикселах. Для Win98/Me и Win2000/XP: если поле biCompression содержит BI_JPEG или BI_PNG, здесь указана ширина распакованного изображения.
+biHeight — высота изображения в пикселах. Если содержит положительное значение — изображение записано в порядке снизу вверх, нулевой пиксел в нижнем левом углу. Если значение отрицательное — изображение записано сверху вниз, нулевой пиксел в верхнем левом углу изображения. Поле biCompression должно содержать значение BI_RGB или BI_BITFIELDS. Такое изображение не может быть сжато.
+biPlanes — содержит единицу.
+biBitCount — указывает количество бит на пиксел. Может принимать следующие значения:
+0 — имеет смысл для Win98/Me/2000/XP/. Число бит на пиксел определяет формат JPEG или PNG.
+1 — изображение монохромное. Член bmiColors структуры BITMAPINFO содержит два элемента. Каждый бит изображения представляет один пиксел; если бит равен нулю — пиксел имеет цвет первого элемента таблицы bmiColors, иначе — цвет второго.
+4 — шестнадцатицветное изображение. Пикселы определяются 4-х битными индексами, каждый байт изображения содержит информацию о двух пикселах — старшие 4 бита для первого, оставшиеся — для второго.
+8 — в палитре содержится до 256 цветов, каждый байт изображения хранит индекс в палитре для одного пиксела.
+16 — если поле biCompression содержит значение BI_RGB, файл не содержит палитры. Каждые два байта изображения хранят интенсивность красной, зелёной и синей компоненты одного пиксела. При этом старший бит не используется, на каждую компоненту отведено 5 бит: 0RRRRRGGGGGBBBBB.
+Если поле biCompression содержит значение BI_BITFIELDS, палитра хранит три четырёхбайтовых значения, определяющих маску для каждой из трёх компонент цвета. Каждый пиксел изображения представлен двухбайтным значением, из которого с помощью масок извлекаются цветовые компоненты. Для WinNT/2000/XP — последовательности бит каждой компоненты должны следовать непрерывно, не перекрываясь и не пересекаясь с последовательностями других компонент. Для Win95/98/Me — поддерживаются только следующие маски: 5-5-5, где маска синей компоненты 0х001F, зелёной 0x03E0, красной 0x7C00; и 5-6-5, где маска синей компоненты 0x001F, зелёной 0x07E0, красной 0xF800.
+24 — палитра не используется, каждая тройка байт изображения представляет один пиксел, по байту для интенсивности синего, зелёного и красного канала соответственно.
+32 — Если поле biCompression содержит значение BI_RGB, изображение не содержит палитры. Каждые четыре байта изображения представляют один пиксел, по байту для интенсивности синего, зелёного и красного канала соответственно. Старший байт каждой четвёрки не используется.
+Если поле biCompression содержит значение BI_BITFIELDS, в палитре хранятся три четырёхбайтных цветовых маски — для красной, зелёной и синей компоненты. Каждый пиксел изображения представлен четырьмя байтами. WinNT/2000: маски компонент не должны перекрываться или пересекаться. Windows 95/98/Me: система поддерживает только один режим сжатия, полностью аналогичный режиму без компрессии BI_RGB — старший байт каждой четвёрки используется в качестве альфа-канала, следующие три отведены для синего, зелёного и красного канала соответственно: 0xAARRGGBB .
+biCompression — указывает тип сжатия для сжатых изображений:Значение	Идентификатор	Компрессия
+0	BI_RGB	несжатое изображение
+1	BI_RLE8	сжатие RLE для 8-битных изображений
+2	BI_RLE4	сжатие RLE для 4-битных изображений
+3	BI_BITFIELDS	изображение не сжато, палитра содержит три 4-байтные маски для красной, зелёной и синей компонент цвета. Используется для 16- и 32-битных изображений
+4	BI_JPEG	Win98/Me/2000/XP: JPEG-сжатие
+5	BI_PNG	Win98/Me/2000/XP: PNG-сжатие
+6	BI_ALPHABITFIELDS	WinCE: изображение не сжато, палитра содержит четыре 4-байтные маски для красной, зелёной, синей и прозрачной (альфа-канал) компонент цвета. Используется для 16- и 32-битных изображений
+
+biSizeImage — Указывает размер изображения в байтах. Может содержать ноль для BI_RGB-изображений. Win98/Me/2000/XP: если biCompression содержит BI_JPEG или BI_PNG, biSizeImage указывает размер BI_JPEG или BI_PNG буфера изображения.
+biXPelsPerMeter — указывает горизонтальное разрешение в пикселах на метр для целевого устройства. Приложение может использовать это значение для выбора из группы ресурсов изображения, наиболее подходящего для текущего устройства.
+biYPelsPerMeter — указывает вертикальное разрешение в пикселах на метр для целевого устройства.
+biClrUsed — указывает количество используемых цветовых индексов в палитре. Если значение равно нулю — изображение использует максимально доступное количество индексов, в соответствии со значением biBitCount и методом сжатия, указанным в biCompression.
+
+Если содержит ненулевое значение и biBitCount меньше 16, biClrUsed указывает количество цветов, к которым будет обращаться драйвер устройства или приложение. Если biBitCount больше или равен 16, biClrUsed указывает размер палитры, используемой для оптимизации работы системных палитр. Если biBitCount равен 16 или 32, оптимальная палитра следует сразу после трёх четырёхбайтных масок. В упакованном изображении массив пикселов следует сразу после структуры BITMAPINFO, biClrUsed должен содержать ноль, либо реальный размер палитры.
+biClrImportant — указывает количество индексов, необходимых для отображения изображения. Если содержит ноль — все индексы одинаково важны.
+
+Примечания: Структура BITMAPINFO объединяет BITMAPINFOHEADER и палитру, предоставляя полное описание размеров и цветов изображения.
+
+Чтобы найти палитру в структуре BITMAPINFO, приложение должно использовать информацию, хранимую в biSize, следующим образом:
+pColor = ((LPSTR)pBitmapInfo + (WORD)(pBitmapInfo->bmiHeader.biSize));
+
+Растр обычно хранится в вертикально зеркальном виде. Но есть также возможность хранить растр не в вертикально зеркальном виде. Признак того, что растр в BMP не в вертикально зеркальном виде задаётся параметром biHeight, определить зеркальный или нормальный растр и нормализовать параметр biHeight на BlitzPlus можно так:
+If (biHeight And $80000000) > 0
+        biHeight = ~biHeight + 1
+        BMP_Flipped = False
+Else
+        BMP_Flipped = True
+EndIf
+
+Количество добавляемых в конце каждой строки выравнивающих 0...3 байт (они называются Junk, и значения их не важны).
+
+Вычесление Junk на BlitzPlus:
+Junk = (~(biWidth * biBitCount - 1) Shr 3) And 3
+
+Вычесление Junk на Assembler (как процедура/процедура DLL для PureBasic):
+ProcedureDLL    DIB_Calc_Junk(Width.L, BitCount.L)
+  !                 PUSH    EDX
+  !                 MOV     EAX,[ESP+8]
+  !                 MUL     dword [ESP+12]
+  !                 NEG     EAX
+  !                 SHR     EAX, 32+3
+  !                 AND     EAX, 3
+  !                 POP     EDX
+  ProcedureReturn
+EndProcedure
+
+Длина строки в байтах (LineSize) без учёта Junk на BlitzPlus:
+LineSize = 1 + ((biWidth * biBitCount - 1) Shr 3)
+
+Длина строки в байтах (LineSize) без учёта Junk на Assembler (как процедура/процедура DLL для PureBasic):
+ProcedureDLL    DIB_Calc_LineSize(Width.L, BitCount.L)
+  !                 PUSH    EDX
+  !                 MOV     EAX,[ESP+8]
+  !                 MUL     dword [ESP+12]
+  !                 DEC     EAX
+  !                 SHR     EAX, 32+3
+  !                 INC     EAX
+  !                 POP     EDX
+  ProcedureReturn
+EndProcedure
+
+Длина строки в байтах с учётом Junk на BlitzPlus:
+LineSizeJunk = LineSize + Junk
+
+Длина строки в байтах с учётом Junk на Assembler (как процедура/процедура DLL для PureBasic):
+ProcedureDLL    DIB_Calc_LineJunkSize(Width.L, BitCount.L)
+  !                 PUSH    EDX
+  !                 MOV     EAX,[ESP+8]
+  !                 MUL     dword [ESP+12]
+  !                 DEC     EAX
+  !                 SHR     EAX, 32+3
+  !                 MOV     EDX, EAX
+  !                 INC     EDX
+  !                 NOT     EAX
+  !                 AND     EAX,3
+  !                 ADD     EAX, EDX
+  !                 POP     EDX
+  ProcedureReturn
+EndProcedure
+
+Размер всего растрового изображения без учёта Junk на BlitzPlus:
+ImageSize = LineSize * biHeight
+
+Размер всего растрового изображения с учётом Junk (размер буфера изображения) на BlitzPlus:
+ImageSizeJunk = LineSizeJunk * biHeight
+
+Значение ImageSizeJunk соответствует заявленому в заголовке значению biSizeImage (у не сжатых BMP-файлов).
+
+Преобразование из вертикально зеркализированого в нормальный растр на BlitzPlus:
+Function BMP_Flip()
+If (biHeight = 1) or (BMP_Flipped = False) Then Return
+Local  tmp_BANK%       = CreateBank(LineSizeJunk)
+Local  ADDR_1%         = 0
+Local  ADDR_2%         = (biHeight * LineSizeJunk) - LineSizeJunk
+For index=1 To (biHeight Shr 1)
+        CopyBank bnk_BMP_IMG,  ADDR_1, tmp_BANK,       0,     LineSizeJunk
+        CopyBank bnk_BMP_IMG,  ADDR_2, bnk_BMP_IMG,    ADDR_1, LineSizeJunk
+        CopyBank tmp_BANK,     0,     bnk_BMP_IMG,    ADDR_2, LineSizeJunk
+        ADDR_1 = ADDR_1 + LineSizeJunk
+        ADDR_2 = ADDR_2 - LineSizeJunk
+Next
+FreeBank tmp_BANK
+End Function
+[править]
+BITMAPV4HEADER[4]
+Расширенная версия описанной выше структуры. Win NT 3.51 и более ранние должны использовать структуру BITMAPINFOHEADER. Win98/Me/2000/XP могут использовать вместо структуры BITMAPV4HEADER структуру BITMAPV5HEADER.
+typedef struct {
+  DWORD        bV4Size;
+  LONG         bV4Width;
+  LONG         bV4Height;
+  WORD         bV4Planes;
+  WORD         bV4BitCount;
+  DWORD        bV4V4Compression;
+  DWORD        bV4SizeImage;
+  LONG         bV4XPelsPerMeter;
+  LONG         bV4YPelsPerMeter;
+  DWORD        bV4ClrUsed;
+  DWORD        bV4ClrImportant;
+  DWORD        bV4RedMask;
+  DWORD        bV4GreenMask;
+  DWORD        bV4BlueMask;
+  DWORD        bV4AlphaMask;
+  DWORD        bV4CSType;
+  CIEXYZTRIPLE bV4Endpoints;
+  DWORD        bV4GammaRed;
+  DWORD        bV4GammaGreen;
+  DWORD        bV4GammaBlue;
+} BITMAPV4HEADER, *PBITMAPV4HEADER;
+
+Поля от начала структуры и до bV4ClrImportant включительно имеют то же назначение, что и соответствующие поля структуры BITMAPINFOHEADER.
+bV4RedMask — цветовая маска красной компоненты каждого пиксела, используется только если bV4Compression содержит значение BI_BITFIELDS.
+bV4GreenMask — цветовая маска зелёной компоненты каждого пиксела, используется только если bV4Compression содержит значение BI_BITFIELDS.
+bV4BlueMask — цветовая маска синей компоненты каждого пиксела, используется только если bV4Compression содержит значение BI_BITFIELDS.
+bV4AlphaMask — маска, определяющая компоненту альфа-канала.
+bV4CSType — определяет цветовое пространство изображения.
+bV4Endpoints — структура CIEXYZTRIPLE, указывающая x, y и z координаты трёх цветов, которые соответствуют конечным точкам(endpoints) цветового пространства, определённого для изображения. Это поле игнорируется, если bV4CSType не содержит значения LCS_CALIBRATED_RGB.
+bV4GammaRed — кривая тона красной компоненты. Игнорируется, если bV4CSType не содержит значения LCS_CALIBRATED_RGB. Указывается в формате 16^16.
+bV4GammaGreen — кривая тона зелёной компоненты. Игнорируется, если bV4CSType не содержит значения LCS_CALIBRATED_RGB.
+bV4GammaBlue — кривая тона синей компоненты. Игнорируется, если bV4CSType не содержит значения LCS_CALIBRATED_RGB.
+[править]
+BITMAPV5HEADER[5]
+Win95/NT 4.0: приложения могут использовать BITMAPV4HEADER. Win NT 3.51 и более ранние должны использовать структуру BITMAPINFOHEADER.
+typedef struct { 
+  DWORD        bV5Size; 
+  LONG         bV5Width; 
+  LONG         bV5Height; 
+  WORD         bV5Planes; 
+  WORD         bV5BitCount; 
+  DWORD        bV5Compression; 
+  DWORD        bV5SizeImage; 
+  LONG         bV5XPelsPerMeter; 
+  LONG         bV5YPelsPerMeter; 
+  DWORD        bV5ClrUsed; 
+  DWORD        bV5ClrImportant; 
+  DWORD        bV5RedMask; 
+  DWORD        bV5GreenMask; 
+  DWORD        bV5BlueMask; 
+  DWORD        bV5AlphaMask; 
+  DWORD        bV5CSType; 
+  CIEXYZTRIPLE bV5Endpoints; 
+  DWORD        bV5GammaRed; 
+  DWORD        bV5GammaGreen; 
+  DWORD        bV5GammaBlue; 
+  DWORD        bV5Intent; 
+  DWORD        bV5ProfileData; 
+  DWORD        bV5ProfileSize; 
+  DWORD        bV5Reserved; 
+} BITMAPV5HEADER, *PBITMAPV5HEADER;
+
+Для полей от начала структуры и до bV5GammaBlue включительно будут описаны только отличия от предыдущих версий — BITMAPINFOHEADER и BITMAPV4HEADER.
+bV5CSType — определяет цветовое пространство изображения, может принимать следующие значения:
+LCS_CALIBRATED_RGB
+LCS_sRGB
+LCS_WINDOWS_COLOR_SPACE
+PROFILE_LINKED
+PROFILE_EMBEDDED
+bV5Intent — может принимать следующие значения:
+LCS_GM_ABS_COLORIMETRIC
+LCS_GM_BUSINESS
+LCS_GM_GRAPHICS
+LCS_GM_IMAGES
+bV5ProfileData — смещение в байтах от начала структуры к началу данных профиля (имя файла профиля, строка состоящая исключительно из символов кодовой таблицы 1252 и заканчивающаяся нулевым байтом). Игнорируется, если bV5CSType содержит значение, отличное от PROFILE_LINKED и PROFILE_EMBEDDED.
+bV5ProfileSize — размер данных профиля в байтах.
+bV5Reserved — зарезервировано. Содержит ноль.
+[править]
+Палитра
+
+Палитра может содержать последовательность четырёхбайтовых полей по числу доступных цветов (256 для 8-битного изображения). Три младшие байта каждого поля определяют интенсивность красной, зелёной и синей компоненты цвета, старший байт не используется. Каждый пиксел изображения описан в таком случае одним байтом, содержащим номер поля палитры, в котором сохранен цвет этого пиксела.
+
+Если пиксел изображения описывается 16-битным числом, палитра может хранить три двухбайтных значения, каждое из которых определяет маску для извлечения из 16-битного пиксела красной, зелёной и синей компонент цвета.
+
+Файл BMP может не содержать палитры, если в нём хранится несжатое полноцветное изображение.
+[править]
+Данные изображения
+
+Последовательность пикселов, записанных в том или ином виде. Пикселы хранятся построчно, снизу вверх. Каждая строка изображения дополняется нулями до длины, кратной четырём байтам.
+
+В bmp файлах с глубиной цвета 24 бита, байты цвета каждого пиксела хранятся в порядке BGR (Blue,Green,Red)
+
+B bmp файлах с глубиной цвета 32 бита, байты цвета каждого пиксела хранятся в порядке BGRA (Blue,Green,Red,Alpha)
+[править]
+Битность изображения
+
+В зависимости от количества представляемых цветов, на каждую точку отводится от 1 до 48 битов:
+1 бит — монохромное изображение (два цвета).
+2 бита — 4 возможных цвета (режимы работы CGA) (2-битовый режим официально не стандартизован, но использутся).
+4 бита — 16-цветное изображение (режимы работы EGA).
+8 бит (1 байт) — 256 цветов, последний из режимов, поддерживавших индексированные цвета (см. ниже).
+16 бит (2 байта) — режим HiColor, Для 5-6-5 = 65536 возможных оттенков, для 5-5-5 = 32768 возможных оттенков.
+24 бита (3 байта) — TrueColor. В связи с тем, что 3 байта не очень хорошо соотносятся с степенями двойки (особенно при хранении данных в памяти, где выравнивание данных по границе слова имеет значение), вместо него часто используют 32-битное изображение. В режиме TrueColor на каждый из трёх каналов (в режиме RGB) отводится по 1 байту (256 возможных значений), общее количество цветов равно 16777216.
+32 бита (4 байта) — этот режим практически аналогичен TrueColor, четвёртый байт обычно не используется, или в нём располагается альфа-канал (прозрачность).
+48 бит (6 байт) — редко используемый формат с повышенной точностью передачи цвета, поддерживается относительно малым количеством программ и оборудования.
+[править]
+Индексированные цвета
+
+При количестве бит: 1 (2 цвета), 2 (4 цвета), 4 (16 цветов) или 8 (256 цветов) на каждый пиксел, может использоваться специальный режим индексированных цветов. В этом случае число, соответствующее каждому пикселу, указывает не на цвет, а на номер цвета в палитре. Благодаря использованию палитры имеется возможность адаптировать изображение к цветам, присутствующим на изображении. В таком случае изображение ограниченно не заданными цветами, а максимальным количеством одновременно используемых цветов.
+[править]
+Пример программы
+
+Следующая программа открывает 24 битный BMP файл в окне XWindow, глубина цвета должна составлять 32 бита, на меньшей цветопередаче не работает, так как это усложняет пример:
+/* Компилируется строкой: cc -o xtest xtest.c -I/usr/X11R6/include -L/usr/X11R6/lib -lX11 -lm  */
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include <X11/Xatom.h>
+#include <X11/keysym.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <errno.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <math.h>
+#include "bitmap.h" /* Здесь определения заголовков BMP как было описано выше в этой статье */
+ 
+ 
+static XImage *CreateImageFromBuffer(Display*, unsigned char *, int, int);
+ 
+main(int argc, char *argv[])
+{
+    Display *dis;
+    Window win;/* Наше окно */
+    XEvent event;/* События */
+    GC gc;/* Графический контекст */
+ 
+    XImage *image;
+    int  n, width, height, fd, size;
+    unsigned char *data;
+    BITMAPFILEHEADER bmp;
+    BITMAPINFOHEADER inf;
+    char* buf;
+ 
+    if (argc < 2) {
+        perror("use: xtest file.bmp\n");
+        exit(1);
+    }
+ 
+  if ((fd = open(argv[1], O_RDONLY)) == -1) {
+        printf("Error open bitmap\n");
+        exit(1);
+    }
+ 
+  read(fd, &bmp, sizeof(BITMAPFILEHEADER));
+  read(fd, &inf,sizeof(BITMAPINFOHEADER));
+ 
+ 
+  width = inf.biWidth;
+  height = inf.biHeight;
+ 
+    if ((dis = XOpenDisplay(getenv("DISPLAY"))) == NULL) {
+        printf("Can't connect X server: %s\n", strerror(errno));
+        exit(1);
+    }
+ 
+ 
+    win = XCreateSimpleWindow(dis, RootWindow(dis, DefaultScreen(dis)), 0, 0, width, height, 5,
+                   BlackPixel(dis, DefaultScreen(dis)), WhitePixel(dis, DefaultScreen(dis)));
+ 
+    XSetStandardProperties(dis, win, argv[1], argv[0], None, argv, argc, NULL);
+    gc = DefaultGC(dis, DefaultScreen(dis));
+ 
+ /* Иногда в структуре это место не заполнено */
+    if(inf.biSizeImage == 0)  {
+    /* Вычислим размер */
+     size = width * 3 + width % 4;
+     size = size * height;
+    } else {
+      size = inf.biSizeImage;
+     }
+ 
+    buf = malloc(size);
+    if(buf == NULL) {
+        perror("malloc");
+        exit(1);
+    }
+    printf("size = %d байтов выделено\n", size);
+ 
+ 
+     /* Сместимся на начало самого изображения */
+    lseek(fd, bmp.bfOffBits, SEEK_SET); 
+ 
+    /* Читаем в буфер */
+    n = read(fd, buf, size);
+    printf("size = %d байт прочитано\n", n);
+ 
+   image = CreateImageFromBuffer(dis, buf, width, height);
+ 
+   /* Удалим буфер - он нам больше не нужен */
+   free(buf); 
+ 
+ 
+    XMapWindow(dis, win);
+    XSelectInput(dis, win, ExposureMask | KeyPressMask);
+    while (1) {
+        XNextEvent(dis, &event);
+        if (event.xany.window == win) {
+            switch (event.type) {
+            case Expose:
+                XPutImage(dis, win, gc, image, 0, 0, 0, 0, image->width, image->height);
+                break;
+ 
+            case KeyPress:
+                if (XLookupKeysym(&event.xkey, 0) == XK_q) {
+                    XDestroyImage(image);
+                    XCloseDisplay(dis);
+                    close(fd);
+                    exit(EXIT_SUCCESS);
+                }
+                break;
+ 
+            default:
+                break;
+            }
+        }
+    }
+}
+ 
+/* Создает Ximage из файла BMP, так как изображение BMP храниться первернутым
+ * и зеркальным-в цикле это исправляется */ 
+XImage *CreateImageFromBuffer(Display * dis, unsigned char *buf, int width,  int height)
+{
+    int depth, screen;
+    XImage *img = NULL;
+    int i, j;
+    int numBmpBytes;
+    size_t numImgBytes;
+    int32_t *imgBuf;
+    int ind = 0;
+    int line;
+    int temp;
+    int ih, iw; /* Номера строки и столбца для отражения  */
+    int new_ind; /* Новый индекс */
+ 
+    screen = DefaultScreen(dis);
+    depth = DefaultDepth(dis, screen);
+    temp = width * 3;
+    line = temp + width % 4; /* Длина строки с учетом выравнивания */
+    numImgBytes = (4 * (width * height));
+    imgBuf = malloc(numImgBytes);
+ 
+    /* Размер, отведенный на BMP в файле с учетом выравнивания */
+    numBmpBytes = line * height;
+    for (i = 0; i < numBmpBytes; i++) {
+        unsigned int r, g, b;
+ 
+        /* Пропускаем padding */
+        if (i >= temp && (i % line) >= temp)
+            continue;
+ 
+        b = buf[i];
+        i++;
+        g = buf[i];
+        i++;
+        r = buf[i];
+ 
+ 
+        /* Вычисляем новый индекс для отражения по вертикали */
+        iw = ind % width;
+        ih = ind / width;
+        new_ind = iw + (height - ih - 1) * width;
+ 
+        imgBuf[new_ind] = (r | g << 8 | b << 16) << 8;
+        ind++;
+    }
+ 
+    img = XCreateImage(dis, CopyFromParent, depth, ZPixmap, 0, (char *) imgBuf, width, height, 32, 0);
+    XInitImage(img);
+ 
+    /* Порядок битов и байтов на PC должен быть таким */
+    img->byte_order = MSBFirst;
+ 
+    img->bitmap_bit_order = MSBFirst;
+    return img;
+}
+
+[править]
+Примечания
+^ Евченко А.И. —- OpenGL и DirectX. Программирование графики (Для профессионалов), 2006г. Стр. 183.
+^ MSDN: BITMAPFILEHEADER
+^ MSDN: BITMAPINFOHEADER
+^ MSDN: BITMAPV4HEADER
+^ MSDN: BITMAPV5HEADER
+[править]
+Ссылки
