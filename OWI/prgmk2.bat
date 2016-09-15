@@ -1,0 +1,1 @@
+"c:\Program Files\Atmel\AVR Tools\Stk500\STK500.EXE" -cUSB -dATmega2561 -e -ifRelease\Exe\lcd5130.hex -pf -vf -I2MHz
