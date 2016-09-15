@@ -1,0 +1,7 @@
+ATmega16A Default fuses:
+
+fuse byte 0 = 0xE1 (LOW)
+fuse byte 1 = 0x99 (HIGH)
+
+
+0xEF 0xD9 for external XTAL 8MHz and JTAG disable
