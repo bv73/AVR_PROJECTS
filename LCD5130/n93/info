@@ -1,0 +1,20 @@
+Провел опыт по замене дисплея, хочу поделиться. Принесли NOKIA 3110с, дисплей(128x160) не показывает, 
+а такого же, для проверки нету. По распиновке разъема совпал с диспом от NOKIA 5310 express music(320x240), 
+т.к. дисп был наколотый с краю решил рискнуть. И вуаля! На экране 320х240 появилось изображение размером 
+128х160, со всеми заставками, часиками, и т.д. пиксели за пределами зоны 128х160 остались черными.
+Может кому пригодиться по совместимости регистров контроллеров.
+
+
+Вот еще образец совместимости регистров...
+Плата - NOKIA 3110c, дисплей - NOKIA n73 китай (320х240).
+Справа родной дисп 3110с (128х160). 
+
+
+Hi, for those who doesn't know, 90% of the last years colour nokia phones use the same command set.
+For both 320x240 and 160x128 LCDs, althought they are not the same controller, they are command compatible 
+in most times.
+I am talking about 262k or 16.7M colour phones, forget those 4096 colours old phones!
+I have testesd myself on nokia N82, N81, 2630, 3110 LCDs and all worked!
+
+
+http://vrtp.ru/index.php?showtopic=1120&hl=%E4%E8%F1%EF%EB%E5%E8%20%EE%F2%20%F1%EE%F2%E8%EA%EE%E2&st=2040
