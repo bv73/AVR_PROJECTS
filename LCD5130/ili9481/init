@@ -1,0 +1,92 @@
+void STM324xG_LCD_Init(void)
+{
+  __IO uint32_t lcdid = 0;
+
+  LCD_FSMC_Config();
+  _delay_(5); /* delay 50 ms */
+
+  /* Read the LCD ID */
+  lcdid = LCD_ReadReg(0x00);
+  //ILI9481?ID??
+    LCD_WR_REG(0XBF);                   
+    LCD_RD_DATA();             //dummy read      
+    LCD_RD_DATA();           //??0X01               
+    LCD_RD_DATA();             //??0XD0                   
+    lcdid=LCD_RD_DATA();//????0X94 
+    lcdid<<=8;
+    lcdid|=LCD_RD_DATA();//????0X81         
+  if(lcdid == 0x9481)
+    {
+   _delay_(5); /* delay 50 ms */
+        
+    LCD_WR_REG(0x0011);          //??????,0x0010???
+  _delay_(5); /* delay 50 ms */
+  //LCD_WR_REG(0x0013);          //???????? 
+  LCD_WR_REG(0x00D0);          //??????,??3???
+  LCD_WR_DATA(0x0007);         //1.0xVci
+  LCD_WR_DATA(0x0042);         //
+  LCD_WR_DATA(0x0018);         // 
+  
+    LCD_WR_REG(0x00D1);          //Vcom Control ??????
+  LCD_WR_DATA(0x0000);         //
+  LCD_WR_DATA(0x0007);         //
+  LCD_WR_DATA(0x0010);         // 
+ 
+  LCD_WR_REG(0x00D2);          //????????????,??????
+  LCD_WR_DATA(0x0001);         //
+  LCD_WR_DATA(0x0002);         //
+  
+    LCD_WR_REG(0x00C0);          //Panel Driving setting  ??5???
+  LCD_WR_DATA(0x0010);         //??????
+  LCD_WR_DATA(0x003B);         //????480?
+  LCD_WR_DATA(0x0000);         //
+  LCD_WR_DATA(0x0002);         //5frames
+  LCD_WR_DATA(0x0011);         //
+  
+    LCD_WR_REG(0x00C1);          //Timing setting ??3???
+  LCD_WR_DATA(0x0010);         //
+  LCD_WR_DATA(0x000B);         //
+  LCD_WR_DATA(0x0088);         //
+ 
+  LCD_WR_REG(0x00C5);          //Frame Rate and Inversion Control ??????
+  LCD_WR_DATA(0x0001);         //100hz  
+  
+    LCD_WR_REG(0x00C8);          //????,??12???
+  LCD_WR_DATA(0x0000);
+    LCD_WR_DATA(0x0032);
+    LCD_WR_DATA(0x0036);
+  LCD_WR_DATA(0x0045);
+    LCD_WR_DATA(0x0006);
+    LCD_WR_DATA(0x0016);
+  LCD_WR_DATA(0x0037);
+    LCD_WR_DATA(0x0075);
+    LCD_WR_DATA(0x0077);
+  LCD_WR_DATA(0x0054);
+    LCD_WR_DATA(0x000f);
+    LCD_WR_DATA(0x0000); 
+  
+    LCD_WR_REG(0x0036);
+    LCD_WR_DATA(0x000A); 
+    
+  LCD_WR_REG(0x003A);
+    LCD_WR_DATA(0x0055); 
+    
+  LCD_WR_REG(0x002A);
+    LCD_WR_DATA(0x0000);
+  LCD_WR_DATA(0x0000); 
+    LCD_WR_DATA(0x0001);
+  LCD_WR_DATA(0x003F);
+     
+  LCD_WR_REG(0x002B);
+    LCD_WR_DATA(0x0000);
+    LCD_WR_DATA(0x0000);
+    LCD_WR_DATA(0x0001);
+    LCD_WR_DATA(0x00E0);
+       
+  _delay_(10); /* delay 100 ms */
+  LCD_WR_REG(0x0029);   //???
+  LCD_WR_REG(0x002C);   //?????
+  }
+  LCD_Clear(White);
+  
+}
