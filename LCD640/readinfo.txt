@@ -1,0 +1,61 @@
+
+avreal/WIN32  -  AVR controllers programmer by Redchuk Alexandr
+v1.28r5 (Oct 11 2010 20:02:13)  http://real.kiev.ua/avreal
+bug-reports, suggestions and so on mail to avreal@real.kiev.ua
+Command:
+  -ab -p1 +mega128 -r -c LASTcode.hex -d LASTdata.hex -%
+	% LPT port number 1
+	% LPT base address 0x378
+	% DLportIO.dll succesfully loaded, DLportIO.sys interface activated
+	% LPT write cycle 1.02us
+	% ByteBlaster found
+	% ByteBlaster adapter mode
+	% MCU oscillator frequency = 0.80MHz
+	% setup 2.63us, hold 2.63us
+	% actual SCK frequency 140kHz
+Adapter enabled
+	% Reset
+	% PgmOn reply  FF FE 53 00
+	% Synchronised after 1 try
+	% GetID reply  00 30 00 1E
+	% GetID reply  00 30 00 97
+	% GetID reply  00 30 00 02
+	% Read ID: 0x1E9702
+Device connected, mega128|mega128A detected
+	% Read Lock	command 58 00 00 00,  reply 00 58 00 FF
+Chip not locked
+	% Read Osccal	command 38 00 00 00,  reply 00 38 00 95
+	% Read Osccal	command 38 00 01 00,  reply 00 38 00 93
+	% Read Osccal	command 38 00 02 00,  reply 00 38 00 90
+	% Read Osccal	command 38 00 03 00,  reply 00 38 00 91
+	% Read Fuses	command 50 00 00 00,  reply 00 50 00 04
+	% Read Fuses	command 58 00 00 00,  reply 00 58 00 FF
+	% Read Fuses	command 58 08 00 00,  reply 00 58 08 18
+	% Read Fuses	command 50 08 00 00,  reply 00 50 08 FF
+Fuses 
+  OSCCALs	= 95 93 90 91
+_LOCK = 0xFF
+  BLB1      	= 3
+  BLB0      	= 3
+_LOW = 0x4
+  BODLEVEL  	= 0
+  BODEN     	= 0
+  SUT       	= 0
+  CKSEL     	= 4
+_HIGH = 0x18
+  OCDEN     	= 0
+  JTAGEN    	= 0
+  CKOPT     	= 1
+  EESAVE    	= 1
+  BOOTSZ    	= 0
+  BOOTRST   	= 0
+_EXT = 0xFF
+  M103C     	= 1
+  WDTON     	= 1
+Reading CODE memory
+................................................................................................................................................................................................................................................................ done (32s)
+Reading DATA memory
+................................................................................................................................ done (1.24s)
+Total time 34s
+Reset pin released
+Adapter disabled

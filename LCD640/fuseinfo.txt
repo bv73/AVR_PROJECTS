@@ -1,0 +1,38 @@
+
+avreal/WIN32  -  AVR controllers programmer by Redchuk Alexandr
+v1.28r5 (Oct 11 2010 20:02:13)  http://real.kiev.ua/avreal
+bug-reports, suggestions and so on mail to avreal@real.kiev.ua
+Command:
+  -ab -p1 +mega128 -?
+
+mega128|mega128A signature 1E9702
+Fuse list
+  fuse programmed state is 0
+  use ON or OFF aliases for 1-bit fuses if you not shure
+
+_LOCK fuse byte:
+  BLB1       = 0 to  3 - Disable SPM/LPM in boot section (BLB12,BLB11)
+  BLB0       = 0 to  3 - Disable SPM/LPM in application section (BLB02,BLB01)
+
+_LOW fuse byte:
+  BODLEVEL   = 0 or  1 - Brown-out level
+   (BLEV)
+  BODEN      = 0 or  1 - Brown-out detect
+  SUT        = 0 to  3 - Start-up timer
+  CKSEL      = 0 to  F - Clock selection
+
+_HIGH fuse byte:
+  OCDEN      = 0 or  1 - On-chip debug enable
+  JTAGEN     = 0 or  1 - JTAG port enable
+  CKOPT      = 0 or  1 - Clock option
+  EESAVE     = 0 or  1 - Keep EEPROM @ erase
+   (EESV)
+  BOOTSZ     = 0 to  3 - Boot section size
+   (BSIZ)
+  BOOTRST    = 0 or  1 - Reset to boot block
+   (BRST)
+
+_EXT fuse byte:
+  M103C      = 0 or  1 - mega103 compatibility enable
+  WDTON      = 0 or  1 - WDT enable
+

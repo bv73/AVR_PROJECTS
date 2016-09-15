@@ -1,0 +1,1 @@
+avreal32 -ab -p1 +mega128 -cRelease\exe\LCD640.hex  -e -w -v -%% > proginfo.txt
