@@ -1,0 +1,29 @@
+void main(void)
+{
+	CS=0;
+    RST=0;
+    delay(20);
+    RST=1;
+    initial();
+     while(1)
+     {
+    // initial();
+    display_griphic(djn); 
+    wait_key();
+      test_patten(0xf8,0x00);
+     wait_key();
+     test_patten(0x07,0xe0);
+     wait_key();   
+     test_patten(0x00,0x1f);
+     wait_key();
+    // test_patten(0xff,0xff);
+    // wait_key();
+ //test_patten(0x00,0x00);
+   //  wait_key();
+  // initial();
+   //  test_grayscal(R);wait_key();
+  //   test_grayscal(G);wait_key();
+  //   test_grayscal(B);wait_key();
+ //initial();
+     }
+}
