@@ -1,0 +1,1 @@
+"c:\Program Files\Atmel\AVR Tools\Stk500\STK500.EXE" -cUSB -dATmega88 -ieRelease\Exe\apis_eep.hex -pe
