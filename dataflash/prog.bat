@@ -1,0 +1,1 @@
+avreal32 -ab -p1 +mega128 -cRelease\exe\dataflash.hex  -e -w -v -%%
