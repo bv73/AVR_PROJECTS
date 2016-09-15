@@ -1,0 +1,6 @@
+Writen by (R)soft 23.10.2011 Last Edition: 23 Oct 2011
+Version 1.0
+Tested on Mega2561 & Mega162.
+Testing on ALCATEL 715 LCD Module. Resolution 150x100 pixels. 
+Built-in HD66752 (HD66753 compatible) controller with parallel interface.
+Reference manual for controller - HD66753.pdf
