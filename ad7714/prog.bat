@@ -1,0 +1,1 @@
+avreal32 -ab -p1 +mega2561 -o14MHz -cRelease\exe\ad7714.hex  -e -w -v -%%
