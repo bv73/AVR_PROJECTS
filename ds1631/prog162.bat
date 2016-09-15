@@ -1,0 +1,1 @@
+avreal32 -ab -p1 +mega162 -o14MHz -cRelease\exe\ds1631.hex  -e -w -v -%%
