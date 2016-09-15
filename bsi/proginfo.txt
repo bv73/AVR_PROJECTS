@@ -1,0 +1,75 @@
+
+avreal/WIN32  -  AVR controllers programmer by Redchuk Alexandr
+v1.28r5 (Oct 11 2010 20:02:13)  http://real.kiev.ua/avreal
+bug-reports, suggestions and so on mail to avreal@real.kiev.ua
+Command:
+  -ab -p1 +mega128 -cRelease\exe\dataflash.hex -e -w -v -%
+Start address record in HEX file ignored
+	% LPT port number 1
+	% LPT base address 0x378
+	% DLportIO.dll succesfully loaded, DLportIO.sys interface activated
+	% LPT write cycle 1.02us
+	% ByteBlaster found
+	% ByteBlaster adapter mode
+	% MCU oscillator frequency = 0.80MHz
+	% setup 2.63us, hold 2.63us
+	% actual SCK frequency 140kHz
+Adapter enabled
+	% Reset
+	% PgmOn reply  FF FE 53 00
+	% Synchronised after 1 try
+	% GetID reply  00 30 00 1E
+	% GetID reply  00 30 00 97
+	% GetID reply  00 30 00 02
+	% Read ID: 0x1E9702
+Device connected, mega128|mega128A detected
+	% Read Lock	command 58 00 00 00,  reply 00 58 00 FF
+Chip not locked
+	% Read Osccal	command 38 00 00 00,  reply 00 38 00 95
+	% Read Osccal	command 38 00 01 00,  reply 00 38 00 93
+	% Read Osccal	command 38 00 02 00,  reply 00 38 00 90
+	% Read Osccal	command 38 00 03 00,  reply 00 38 00 91
+	% Erase reply  00 AC 80 00
+Device erased
+	% Reset
+	% PgmOn reply  FF FE 53 00
+	% Synchronised after 1 try
+	% GetID reply  00 30 00 1E
+	% GetID reply  00 30 00 97
+	% GetID reply  00 30 00 02
+	% Read ID: 0x1E9702
+Device connected, mega128|mega128A detected
+	% Read Lock	command 58 00 00 00,  reply 00 58 00 FF
+	% Read Fuses	command 50 00 00 00,  reply 00 50 00 CF
+	% Read Fuses	command 58 00 00 00,  reply 00 58 00 FF
+	% Read Fuses	command 58 08 00 00,  reply 00 58 08 08
+	% Read Fuses	command 50 08 00 00,  reply 00 50 08 FF
+Fuses 
+  OSCCALs	= 95 93 90 91
+_LOCK = 0xFF
+  BLB1      	= 3
+  BLB0      	= 3
+_LOW = 0xCF
+  BODLEVEL  	= 1
+  BODEN     	= 1
+  SUT       	= 0
+  CKSEL     	= F
+_HIGH = 0x8
+  OCDEN     	= 0
+  JTAGEN    	= 0
+  CKOPT     	= 0
+  EESAVE    	= 1
+  BOOTSZ    	= 0
+  BOOTRST   	= 0
+_EXT = 0xFF
+  M103C     	= 1
+  WDTON     	= 1
+Programming CODE memory
+.. done (278ms)
+Verifying CODE memory
+
+	% Verifying from 0x0 to 0x412  .. passed
+ done (241ms)
+Total time 1.02s
+Reset pin released
+Adapter disabled
