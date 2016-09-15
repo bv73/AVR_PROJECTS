@@ -1,0 +1,1 @@
+"c:\Program Files\Atmel\AVR Tools\Stk500\STK500.EXE" -cUSB -dATmega88P -fDFF7 -FDFF7 -EF9 -GF9
