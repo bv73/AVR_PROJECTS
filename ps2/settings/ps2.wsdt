@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Workspace>
+  <ConfigDictionary>
+    
+  <CurrentConfigs><Project>ps2/Release</Project></CurrentConfigs></ConfigDictionary>
+  <Desktop>
+    <Static>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>161</Column0><Column1>0</Column1><Column2>27</Column2><Column3>14676900</Column3></ColumnWidths>
+      </Workspace>
+      <Build>
+        
+        
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>720</ColumnWidth1><ColumnWidth2>192</ColumnWidth2><ColumnWidth3>48</ColumnWidth3></Build>
+    <TerminalIO/></Static>
+    <Windows>
+      
+      
+    <Wnd2>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-270-24732</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>ps2</ExpandedNode><ExpandedNode>ps2/Output</ExpandedNode><ExpandedNode>ps2/main.c</ExpandedNode><ExpandedNode>ps2/main.c/Output</ExpandedNode></NodeDict></Session>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd2><Wnd3>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-26765-24849</Identity>
+            <TabName>Build</TabName>
+            <Factory>Build</Factory>
+            <Session/>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd3></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>D:\AVR_PROJECTS\ps2\main.c</Filename><XPos>0</XPos><YPos>48</YPos><SelStart>1517</SelStart><SelEnd>1517</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>D:\AVR_PROJECTS\ps2\uart.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>443</SelStart><SelEnd>443</SelEnd></Tab><ActiveTab>1</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>D:\AVR_PROJECTS\ps2\interrupt.c</Filename><XPos>0</XPos><YPos>24</YPos><SelStart>1423</SelStart><SelEnd>1423</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>D:\AVR_PROJECTS\ps2\scancodes.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>140</SelStart><SelEnd>140</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>D:\AVR_PROJECTS\ps2\keyboard.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>35</SelStart><SelEnd>51</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>D:\AVR_PROJECTS\ps2\keyboard.c</Filename><XPos>0</XPos><YPos>408</YPos><SelStart>14917</SelStart><SelEnd>14917</SelEnd></Tab><Tab><Factory>TextEditor</Factory><Filename>D:\AVR_PROJECTS\ps2\uart.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>450</SelStart><SelEnd>450</SelEnd></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-01338ae8><key>iaridepm.enu1</key></Toolbar-01338ae8></Sizes></Row0></Top><Left><Row0><Sizes><Wnd2><Rect><Top>-2</Top><Left>-2</Left><Bottom>525</Bottom><Right>224</Right><x>-2</x><y>-2</y><xscreen>0</xscreen><yscreen>0</yscreen><sizeHorzCX>0</sizeHorzCX><sizeHorzCY>0</sizeHorzCY><sizeVertCX>220703</sizeVertCX><sizeVertCY>752857</sizeVertCY></Rect></Wnd2></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd3><Rect><Top>-2</Top><Left>-2</Left><Bottom>131</Bottom><Right>1026</Right><x>-2</x><y>-2</y><xscreen>1028</xscreen><yscreen>133</yscreen><sizeHorzCX>1003906</sizeHorzCX><sizeHorzCY>190000</sizeHorzCY><sizeVertCX>0</sizeVertCX><sizeVertCY>0</sizeVertCY></Rect></Wnd3></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+  </Desktop>
+</Workspace>
+
+
